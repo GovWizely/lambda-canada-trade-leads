@@ -10,7 +10,7 @@ import requests
 from botocore.exceptions import ClientError
 
 BUCKET = "trade-leads"
-KEY = "ustda.json"
+KEY = "canada.json"
 JSON = "application/json"
 ENDPOINT = "https://buyandsell.gc.ca/procurement-data/csv/tender/active"
 REGEXP = re.compile(r", ([0-9A-Z]+ -)")
