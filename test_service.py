@@ -1,6 +1,7 @@
 import vcr
+from botocore.exceptions import ClientError
 
-from service import get_entries
+from service import get_entries, handler
 
 
 @vcr.use_cassette()
@@ -63,3 +64,9 @@ def test_get_entries():
         "attachment": "",
     }
     assert entries[0] == expected_entry
+
+
+def test_handler_handles_s3_client_error(mocker):
+    """Ensures any S3 client errors get handled"""
+    mocker.patch("service.S3_CLIENT.put_object", side_effect=ClientError({}, "failure"))
+    assert handler(None, None) is False
